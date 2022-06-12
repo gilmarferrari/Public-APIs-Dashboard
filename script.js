@@ -5,7 +5,7 @@ function copyLink() {
 
 $.when(
     $.getJSON('https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados/ultimos/30?formato=json'),
-    $.getJSON('https://api.bcb.gov.br/dados/serie/bcdata.sgs.16121/dados/ultimos/12?formato=json'),
+    $.getJSON('https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados/ultimos/12?formato=json'),
 ).done(function (USD, others) {
     loadCharts(USD[0], others[0]);
 });
