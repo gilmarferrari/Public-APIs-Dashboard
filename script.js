@@ -4,32 +4,29 @@ function copyLink() {
 }
 
 $.when(
-    $.getJSON('https://economia.awesomeapi.com.br/json/daily/USD-BRL/15'),
-    $.getJSON('https://economia.awesomeapi.com.br/json/all')
-).done(function(USD, others) {
-    console.log([USD, others]);
-    loadCharts(USD[0].reverse(), others[0]);
+    $.getJSON('https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados/ultimos/30?formato=json'),
+    $.getJSON('https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/365?formato=json'),
+).done(function (USD, others) {
+    loadCharts(USD[0], others[0]);
 });
 
 function loadCharts(USD, others) {
-    var low = Object.keys(USD).map(i => Number.parseFloat(USD[i].low));
-    var high = Object.keys(USD).map(i => Number.parseFloat(USD[i].high));
-    var period = Object.keys(USD).map(i => new Date(USD[i].timestamp * 1000).toLocaleDateString('pt-BR'));
-    var variation = Object.keys(USD).map(i => Number.parseFloat(USD[i].pctChange));
-    var coins = Object.keys(others).map(i => others[i].code);
-    var coinsLow = Object.keys(others).map(i => others[i].low);
+    var amount = USD.map(i => i.valor);
+    var USDperiod = USD.map(i => i.data);
+    var IPCA = others.map(i => (i.valor * 10).toFixed(2));
+    var IPCAperiod = others.map(i => i.data);
+    var variation = [];
+    for (let i = 0; i < USD?.length; i++) {
+        variation.push({ x: i + 1, y: (USD[i]?.valor ?? 1) / (USD[i - 1]?.valor ?? USD[i]?.valor) });
+    }
 
     new Chart("overview", {
         type: "line",
         data: {
-            labels: period,
+            labels: USDperiod,
             datasets: [{
                 borderColor: "#c6df9f",
-                data: low
-            },
-            {
-                borderColor: "#7fa1e0",
-                data: high
+                data: amount
             }]
         },
         options: {
@@ -47,35 +44,46 @@ function loadCharts(USD, others) {
     });
 
     new Chart("variation", {
-        type: "line",
+        type: "scatter",
         data: {
-            labels: period,
             datasets: [{
-                borderColor: "#c6df9f",
+                backgroundColor: "#c6df9f",
                 data: variation
             }]
         },
         options: {
-            legend: { display: false },
+            legend: {
+                display: false
+            },
             scales: {
-                xAxes: [{
-                    display: false
-                }]
+                x: {
+                    type: 'linear',
+                    position: 'bottom'
+                }
             }
         }
     });
 
-    new Chart("other-coins", {
+    new Chart("ipca", {
         type: "bar",
         data: {
-            labels: coins,
+            labels: IPCAperiod,
             datasets: [{
                 backgroundColor: "#c6df9f",
-                data: coinsLow
+                data: IPCA
             }]
         },
         options: {
-            legend: { display: false }
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        display: false
+                    }
+                }]
+            }
         }
     });
 }

@@ -27,25 +27,26 @@
                 </div>
                 <div class="column gap-sm">
                     <div class="row gap-sm">
-                        <span class="chart-legend chart-row-1"></span>
-                        <label class="font white legend">Máx.</label>
-                    </div>
-                    <div class="row gap-sm">
                         <span class="chart-legend chart-row-4"></span>
-                        <label class="font white legend">Min.</label>
+                        <label class="font white legend">Valor em R$</label>
                     </div>
                 </div>
             </div>
             <canvas id="overview" class="line-chart"></canvas>
         </div>
-    </section>
-    <section class="blocks-even">
         <div class="block column gap-lg">
             <div class="row gap-sm middle">
                 <i class="material-icons icon-sm white">query_stats</i>
                 <label class="font subtitle white">VARIAÇÃO DO DÓLAR (%)</label>
             </div>
             <canvas id="variation" class="line-chart"></canvas>
+        </div>
+        <div class="block column gap-lg">
+            <div class="row gap-sm middle">
+                <i class="material-icons icon-sm white">attach_money</i>
+                <label class="font subtitle white">IPCA (12 meses)</label>
+            </div>
+            <canvas id="ipca" class="line-chart"></canvas>
         </div>
     </section>
 </body>

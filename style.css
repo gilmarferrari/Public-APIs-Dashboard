@@ -11,6 +11,8 @@ a {
 .blocks-even {
     display: flex;
     flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
     width: inherit;
     gap: 25px;
     padding-top: 30px;
@@ -19,7 +21,8 @@ a {
 .block {
     background: linear-gradient(70deg, #17394d 0, #0a6956 100%);
     padding: 40px;
-    width: 100%;
+    width: fit-content;
+    max-width: calc(100vw - 40px);
     border-radius: 12px;
     border-bottom: 4px solid #0b1a35;
     border-right: 4px solid #0b1a35;
