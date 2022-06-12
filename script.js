@@ -13,7 +13,7 @@ $.when(
 function loadCharts(USD, others) {
     var amount = USD.map(i => i.valor);
     var USDperiod = USD.map(i => i.data);
-    var IPCA = others.map(i => i.valor.toString().toFixed(2));
+    var IPCA = others.map(i => i.valor);
     var IPCAperiod = others.map(i => i.data);
     var variation = [];
     for (let i = 0; i < USD?.length; i++) {
