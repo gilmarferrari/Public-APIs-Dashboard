@@ -140,10 +140,11 @@ function loadCharts(data) {
                 display: false
             },
             scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom'
-                }
+                xAxes: [{
+                    ticks: {
+                        display: false
+                    }
+                }]
             }
         }
     });
