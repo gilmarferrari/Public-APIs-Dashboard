@@ -127,11 +127,11 @@ function loadCharts(data) {
     });
 
     new Chart("unemployment", {
-        type: "line",
+        type: "bar",
         data: {
             labels: unemployment.map(i => i.data),
             datasets: [{
-                borderColor: "#c6df9f",
+                backgroundColor: "#c6df9f",
                 data: unemployment.map(i => i.valor)
             }]
         },
